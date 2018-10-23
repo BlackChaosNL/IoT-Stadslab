@@ -1,0 +1,19 @@
+{
+  "name": "hackaton-iot-dataweek",
+  "version": "0.0.0",
+  "description": "ReSTful API and Front-end for virtualising IoT Data from The Things Network",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BlackChaosNL/Hackaton-IoT-Dataweek.git"
+  },
+  "author": "Jeroen Vijgen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BlackChaosNL/Hackaton-IoT-Dataweek/issues"
+  },
+  "homepage": "https://github.com/BlackChaosNL/Hackaton-IoT-Dataweek#readme"
+}
