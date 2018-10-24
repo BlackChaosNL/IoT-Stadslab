@@ -1,5 +1,4 @@
 const port = process.env.PORT || 3000;
-const html = 8080;
 const controllerDirectory = "./controllers/";
 
 // Require dependancies
@@ -22,14 +21,8 @@ app.use(bp.urlencoded({ extended: false }));
 app.use(cors());
 app.options("*", cors());
 
-fs.readdirSync(path.join(__dirname, "./controllers")).forEach(file => {
-	controllers.push(file.split(".")[0]);
-});
-
-controllers.forEach(controller => {
-	const c = require(controllerDirectory + controller);
-	app.use("/" + controller, c);
-});
+fs.readdirSync(path.join(__dirname, "./controllers")).forEach(file => { controllers.push(file.split(".")[0]); });
+controllers.forEach(controller => { app.use("/" + controller, require(controllerDirectory + controller)); });
 
 app.get("/swagger", (req, res) => {
 	return res.json(swagger({
@@ -42,7 +35,7 @@ app.get("/swagger", (req, res) => {
 			host: "localhost:3000",
 			basePath: "/",
 		},
-		apis: [ "controllers/*.js" ],
+		apis: [ "./controllers/*.js" ],
 	}));
 })
 
