@@ -59,10 +59,10 @@ app.use(serveStatic('public/html', {'index': ['default.html', 'default.htm']}))
 if(client != null) {
 	ttn.data(client, password).then(c => {
 		c.on("uplink", (devId, payload) => {
-			if(payload.dev_id != null) {
+			if(payload.dev_id != null && payload.payload_raw.readInt8() >= 0) {
 				const nd = data({
 					sensor_id: payload.dev_id,
-					sensor_data: payload.payload_raw.readInt16LE()
+					sensor_data: payload.payload_raw.readInt8()
 				});
 				nd.save();
 			}
