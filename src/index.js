@@ -1,6 +1,6 @@
 const port = process.env.PORT || 3000;
-const client = process.env.TTNCLIENT || null;
-const password = process.env.TTNKEY || null;
+const client = process.env.ttnclient || null;
+const password = process.env.ttnkey || null;
 const controllerDirectory = "./controllers/";
 
 // Require dependancies
