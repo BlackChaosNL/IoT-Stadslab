@@ -32,7 +32,7 @@ app.get("/swagger", (req, res) => {
 				version: dist.version,
 				description: dist.description || "Nondescript",
 			},
-			host: "localhost:3000",
+			host: "iotstadslab.herokuapp.com:3000",
 			basePath: "/",
 		},
 		apis: [ "./controllers/*.js" ],
