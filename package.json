@@ -23,6 +23,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.4",
     "fs": "0.0.1-security",
+    "mongoose": "^5.3.6",
     "redoc": "^2.0.0-alpha.40",
     "serve-static": "^1.13.2",
     "swagger-jsdoc": "^1.10.0",

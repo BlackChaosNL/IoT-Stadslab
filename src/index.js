@@ -12,15 +12,16 @@ const express = require("express"),
 	path = require('path'),
 	dist = require("../package.json"),
 	serveStatic = require("serve-static"),
-	ttn = require("ttn");
+	ttn = require("ttn"),
+	mongoose = require("mongoose"),
+	data = require("./models/data");
 
 let controllers = [];
-
+mongoose.connect("mongodb://" + client + ":" + password + "@ds042677.mlab.com:42677/iotstadslab");
 const app = express();
 
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: false }));
-
 app.use(cors());
 app.options("*", cors());
 
@@ -54,16 +55,23 @@ app.use((req, res, next) => {
 });
 
 app.use(serveStatic('public/html', {'index': ['default.html', 'default.htm']}))
-console.log(client);
-console.log(password);
+
+if(client != null) {
 	ttn.data(client, password).then(c => {
 		c.on("uplink", (devId, payload) => {
-			console.log(payload);
+			if(payload.dev_id != null) {
+				const nd = data({
+					sensor_id: payload.dev_id,
+					sensor_data: payload.payload_raw.toString()
+				});
+				nd.save();
+			}
 		});
 	}).catch(error => {
 		console.log(error);
 	});
-if(client) {}
+}
+
 app.listen(port, () => console.log("Starting the API on port " + port));
 
 module.exports = app;

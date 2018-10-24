@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 /**
  * @swagger
- * /:
+ * sensoren/:
  *   get:
  *     description: Gets a list of unique sensors.
  *     produces: application/json
