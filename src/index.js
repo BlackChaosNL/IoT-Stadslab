@@ -62,7 +62,7 @@ if(client != null) {
 			if(payload.dev_id != null) {
 				const nd = data({
 					sensor_id: payload.dev_id,
-					sensor_data: payload.payload_raw.toString()
+					sensor_data: payload.payload_raw.readInt8()
 				});
 				nd.save();
 			}
