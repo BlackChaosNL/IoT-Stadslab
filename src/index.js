@@ -1,4 +1,6 @@
 const port = process.env.PORT || 3000;
+const client = process.env.TTNCLIENT || null;
+const password = process.env.TTNKEY || null;
 const controllerDirectory = "./controllers/";
 
 // Require dependancies
@@ -9,7 +11,8 @@ const express = require("express"),
 	fs = require("fs"),
 	path = require('path'),
 	dist = require("../package.json"),
-	serveStatic = require("serve-static");
+	serveStatic = require("serve-static"),
+	ttn = require("ttn");
 
 let controllers = [];
 
@@ -51,6 +54,13 @@ app.use((req, res, next) => {
 });
 
 app.use(serveStatic('public/html', {'index': ['default.html', 'default.htm']}))
+if(client) {
+	ttn.data(client, password).then(c => {
+		c.on("uplink", (devId, payload) => {
+			console.log(payload);
+		});
+	});
+}
 app.listen(port, () => console.log("Starting the API on port " + port));
 
 module.exports = app;
