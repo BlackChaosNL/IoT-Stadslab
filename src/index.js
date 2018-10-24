@@ -38,7 +38,7 @@ app.get("/swagger", (req, res) => {
 			host: "iotstadslab.herokuapp.com:3000",
 			basePath: "/",
 		},
-		apis: [ "./controllers/*.js" ],
+		apis: [ "src/controllers/*.js" ],
 	}));
 })
 
@@ -54,13 +54,13 @@ app.use((req, res, next) => {
 });
 
 app.use(serveStatic('public/html', {'index': ['default.html', 'default.htm']}))
-if(client) {
+
 	ttn.data(client, password).then(c => {
 		c.on("uplink", (devId, payload) => {
 			console.log(payload);
 		});
 	});
-}
+if(client) {}
 app.listen(port, () => console.log("Starting the API on port " + port));
 
 module.exports = app;
