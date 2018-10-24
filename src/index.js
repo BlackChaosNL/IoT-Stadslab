@@ -54,11 +54,14 @@ app.use((req, res, next) => {
 });
 
 app.use(serveStatic('public/html', {'index': ['default.html', 'default.htm']}))
-
+console.log(client);
+console.log(password);
 	ttn.data(client, password).then(c => {
 		c.on("uplink", (devId, payload) => {
 			console.log(payload);
 		});
+	}).catch(error => {
+		console.log(error);
 	});
 if(client) {}
 app.listen(port, () => console.log("Starting the API on port " + port));
