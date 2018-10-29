@@ -51,7 +51,7 @@ router.get("/:id", (req, res) => {
  */
 router.get("/:id/last", (req, res) => {
 	data.find({ sensor_id: req.params.id }, {}, { sensor_time: -1 }, (error, sensordata) => {
-		if (err) return res.status(404);
+		if (error) return res.status(404);
 		if (sensordata == []) return res.status(404);
 		return res.json(sensordata);
 	});
