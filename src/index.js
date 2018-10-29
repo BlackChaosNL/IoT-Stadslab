@@ -60,6 +60,7 @@ if(client != null) {
 	ttn.data(client, password).then(c => {
 		c.on("uplink", (devId, payload) => {
 			if(payload.dev_id != null) {
+				console.log(payload);
 				const nd = data({
 					sensor_id: payload.dev_id,
 					sensor_data: Buffer.from(payload.payload_raw, 'hex')[0],
