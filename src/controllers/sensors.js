@@ -12,11 +12,9 @@ const router = require("express").Router(),
  *         description: Returns a list of unique sensors
  */
 router.get("/", (req, res) => {
-	return res.json(data.find().distinct('sensor_id', (err, data) => {
-		console.log(data);
-		return {ok: true};
-		// return data;
-	}));
+	data.find({}).distinct('sensor_id', (err, sensordata) => {
+		return res.json(sensordata);
+	});
 });
 
 /**
@@ -32,10 +30,10 @@ router.get("/", (req, res) => {
  *         description: Sensor could not be found.
  */
 router.get("/:id", (req, res) => {
-	return res.json({ sensor_id: req.params.id }, (err, data) => {
+	data.find({ sensor_id: req.params.id }, (err, sensordata) => {
 		if (err) return res.status(404);
-		if (!data) return res.status(404);
-		return data;
+		if (!sensordata) return res.status(404);
+		return res.json(sensordata);
 	});
 });
 
@@ -53,15 +51,14 @@ router.get("/:id", (req, res) => {
  */
 
 router.post("/", (req, res) => {
-	const sensor = data({
+	data({
 		sensor_id: req.body.sensor_id,
 		sensor_data: req.body.sensor_data,
 		sensor_time: (req.body.sensor_time) ? req.body.sensor_time : new Date
-	});
-	sensor.save((error) => {
+	}).save((error) => {
 		return res.json({ ok: false });
-	})
-	return res.json({ ok: false });
+	});
+	return res.json({ ok: true });
 });
 
 module.exports = router;
