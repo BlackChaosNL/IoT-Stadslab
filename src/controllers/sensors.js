@@ -50,7 +50,7 @@ router.get("/:id", (req, res) => {
  *         description: Sensor could not be found.
  */
 router.get("/:id/last", (req, res) => {
-	data.find({ sensor_id: req.params.id }, {}, { sensor_time: -1 }, (error, sensordata) => {
+	data.findOne({ sensor_id: req.params.id }, {}, { sensor_time: -1 }, (error, sensordata) => {
 		if (error) return res.status(404);
 		if (sensordata == []) return res.status(404);
 		return res.json(sensordata);
