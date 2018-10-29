@@ -13,7 +13,9 @@ const router = require("express").Router(),
  */
 router.get("/", (req, res) => {
 	return res.json(data.find().distinct('sensor_id', (err, data) => {
-		return data;
+		console.log(data);
+		return {ok: true};
+		// return data;
 	}));
 });
 

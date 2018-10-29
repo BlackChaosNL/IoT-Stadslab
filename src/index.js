@@ -17,7 +17,7 @@ const express = require("express"),
 	data = require("./models/data");
 
 let controllers = [];
-if (client != null) mongoose.connect("mongodb://" + client + ":" + password + "@ds042677.mlab.com:42677/iotstadslab");
+if (client != null) mongoose.connect("mongodb://" + client + ":" + password + "@ds042677.mlab.com:42677/iotstadslab", { useNewUrlParser: true });
 const app = express();
 
 app.use(bp.json());
