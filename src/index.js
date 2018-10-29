@@ -63,7 +63,7 @@ if(client != null) {
 				const nd = data({
 					sensor_id: payload.dev_id,
 					sensor_data: Buffer.from(payload.payload_raw, 'hex')[0],
-					sensor_time: new Date(payload.time)
+					sensor_time: payload.time
 				});
 				nd.save();
 			}
