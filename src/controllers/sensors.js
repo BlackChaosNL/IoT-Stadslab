@@ -32,7 +32,27 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
 	data.find({ sensor_id: req.params.id }, (err, sensordata) => {
 		if (err) return res.status(404);
-		if (!sensordata) return res.status(404);
+		if (sensordata == []) return res.status(404);
+		return res.json(sensordata);
+	});
+});
+
+/**
+ * @swagger
+ * /sensors/{id}/last:
+ *   get:
+ *     description: Returns last recieved data.
+ *     produces: application/json
+ *     response:
+ *       200:
+ *         description: Returns a list of unique sensors.
+ *       404:
+ *         description: Sensor could not be found.
+ */
+router.get("/:id/last", (req, res) => {
+	data.find({ sensor_id: req.params.id }).sort({ sensor_time: -1 }).then((error, sensordata) => {
+		if (err) return res.status(404);
+		if (sensordata == []) return res.status(404);
 		return res.json(sensordata);
 	});
 });
