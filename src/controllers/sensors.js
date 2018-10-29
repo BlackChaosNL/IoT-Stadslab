@@ -26,9 +26,9 @@ router.get("/", (req, res) => {
  *     description: Returns all data from specified sensor.
  *     produces: application/json
  *     response:
- *       200:
+ *       '200':
  *         description: Returns a list of unique sensors.
- *       404:
+ *       '404':
  *         description: Sensor could not be found.
  */
 router.get("/:id", (req, res) => {
@@ -46,9 +46,9 @@ router.get("/:id", (req, res) => {
  *     description: Returns last recieved data.
  *     produces: application/json
  *     response:
- *       200:
+ *       '200':
  *         description: Returns the latest data point from the requested sensor.
- *       404:
+ *       '404':
  *         description: Sensor could not be found.
  */
 router.get("/:id/newest", (req, res) => {
@@ -66,9 +66,9 @@ router.get("/:id/newest", (req, res) => {
  *     description: Saves sensor data to the API.
  *     produces: application/json
  *     response:
- *       200:
+ *       '200':
  *         description: Returns whether the sensordata got saved.
- *       404:
+ *       '404':
  *         description: Sensor data could not be saved to the API.
  */
 
