@@ -31,8 +31,8 @@ router.get("/", (req, res) => {
  */
 router.get("/:id", (req, res) => {
 	data.find({ sensor_id: req.params.id }, (err, sensordata) => {
-		if (err) return res.status(404);
-		if (sensordata == []) return res.status(404);
+		if (err) return res.status(404).json({});
+		if (sensordata == []) return res.status(404).json({});
 		return res.json(sensordata);
 	});
 });
@@ -45,14 +45,14 @@ router.get("/:id", (req, res) => {
  *     produces: application/json
  *     response:
  *       200:
- *         description: Returns a list of unique sensors.
+ *         description: Returns the latest data point from the requested sensor.
  *       404:
  *         description: Sensor could not be found.
  */
 router.get("/:id/last", (req, res) => {
 	data.find({sensor_id: req.params.id}).sort('-sensor_time').limit(1).exec((error, sensordata) => {
-		if (error) return res.status(404);
-		if (sensordata == []) return res.status(404);
+		if (error) return res.status(404).json({ ok: false });
+		if (sensordata == []) return res.status(404).json({ ok: false });
 		return res.json(sensordata);
 	});
 });
