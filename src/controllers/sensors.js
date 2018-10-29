@@ -12,8 +12,6 @@ const router = require("express").Router(),
  *         description: Returns a list of unique sensors.
  *         schema:
  *           type: array
- *           items:
- *             $ref: '#/definitions/data'
  */
 router.get("/", (req, res) => {
 	data.find({}).distinct('sensor_id', (err, sensordata) => {
