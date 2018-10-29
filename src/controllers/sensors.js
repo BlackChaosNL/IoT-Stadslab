@@ -39,7 +39,7 @@ router.get("/:id", (req, res) => {
 
 /**
  * @swagger
- * /sensors/{id}/last:
+ * /sensors/{id}/newest:
  *   get:
  *     description: Returns last recieved data.
  *     produces: application/json
@@ -49,7 +49,7 @@ router.get("/:id", (req, res) => {
  *       404:
  *         description: Sensor could not be found.
  */
-router.get("/:id/last", (req, res) => {
+router.get("/:id/newest", (req, res) => {
 	data.find({sensor_id: req.params.id}).sort('-sensor_time').limit(1).exec((error, sensordata) => {
 		if (error) return res.status(404).json({ ok: false });
 		if (sensordata == []) return res.status(404).json({ ok: false });
