@@ -17,7 +17,7 @@ const express = require("express"),
 	data = require("./models/data");
 
 let controllers = [];
-mongoose.connect("mongodb://" + client + ":" + password + "@ds042677.mlab.com:42677/iotstadslab");
+if (client != null) mongoose.connect("mongodb://" + client + ":" + password + "@ds042677.mlab.com:42677/iotstadslab");
 const app = express();
 
 app.use(bp.json());
@@ -36,7 +36,7 @@ app.get("/swagger", (req, res) => {
 				version: dist.version,
 				description: dist.description || "Nondescript",
 			},
-			host: "iotstadslab.herokuapp.com:3000",
+			host: "iotstadslab.herokuapp.com",
 			basePath: "/",
 		},
 		apis: [ "src/controllers/*.js" ],
@@ -59,10 +59,11 @@ app.use(serveStatic('public/html', {'index': ['default.html', 'default.htm']}))
 if(client != null) {
 	ttn.data(client, password).then(c => {
 		c.on("uplink", (devId, payload) => {
-			if(payload.dev_id != null && payload.payload_raw.readInt8() >= 0) {
+			if(payload.dev_id != null) {
 				const nd = data({
 					sensor_id: payload.dev_id,
-					sensor_data: payload.payload_raw.readInt8()
+					sensor_data: Buffer.from(payload.payload_raw, 'hex')[0],
+					sensor_time: new Date(payload.time)
 				});
 				nd.save();
 			}
