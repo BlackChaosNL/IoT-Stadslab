@@ -73,6 +73,9 @@ router.get("/:id", (req, res) => {
  *         description: Returns the latest data point from the requested sensor.
  *       '404':
  *         description: Sensor could not be found.
+ * /sensors/{id}/newest/socket:
+ *   get:
+ *     description: Returns a bindable socket for Socket.IO to bind to.
  */
 router.get("/:id/newest", (req, res) => {
   data.find({
@@ -86,6 +89,11 @@ router.get("/:id/newest", (req, res) => {
     });
     return res.json(sensordata);
   });
+}).get("/:id/newest/socket", (req, res) => {
+  data.watch().on('change', data => {
+    return res.json(data);
+  })
 });
+
 
 module.exports = router;
