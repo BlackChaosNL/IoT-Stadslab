@@ -54,7 +54,7 @@ app.use((req, res, next) => {
 // Start the default
 to.startOne(client, password);
 // Start the user configured TTN observables
-to.start();
+to.startAll();
 
 app.listen(port, () => console.log("Starting the API on port " + port));
 module.exports = app;

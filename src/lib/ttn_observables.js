@@ -1,7 +1,7 @@
 const ttncreds = require("../models/ttn_user"),
   ttn = require("ttn");
 
-function start() {
+function startAll() {
   ttncreds.find({}).then((users) => {
     if (users.length <= 0) return;
     users.forEach(u => {
@@ -41,6 +41,6 @@ function startOne(client, password) {
 };
 
 module.exports = {
-  start,
+  startAll,
   startOne
 };
