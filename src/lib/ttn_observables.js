@@ -28,6 +28,7 @@ function startOne(client, password) {
     ttn.data(client, password).then(c => {
         c.on("uplink", (devId, payload) => {
             if (payload.dev_id == null) return;
+            console.log(payload);
             data({
                 sensor_id: payload.dev_id,
                 sensor_data: Buffer.from(payload.payload_raw, 'hex')[0],
