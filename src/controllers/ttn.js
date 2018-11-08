@@ -1,4 +1,5 @@
-const router = require("express").Router();
+const router = require("express").Router(),
+    to = require("../lib/ttn_observables");
 
 /**
  * @swagger
@@ -21,29 +22,30 @@ const router = require("express").Router();
  *         description: Data could not be found.
  */
 router.post("/", (req, res) => {
-  if (this.body.ttnclient == null) return res.json({
-    ok: false
-  });
-
-  ttncreds.count({
-    ttn_user: this.body.ttnclient
-  }, (error, count) => {
-    if (count > 0) return res.json({
-      ok: false
-    });
-    ttncreds({
-      ttn_user: this.body.ttnclient,
-      ttn_secret: this.body.ttnkey
-    }).save((error) => {
-      return res.json({
-        ok: true
-      });
-    }).catch((error) => {
-      return res.json({
+    if (this.body.ttnclient == null) return res.json({
         ok: false
-      });
     });
-  });
+
+    ttncreds.count({
+        ttn_user: this.body.ttnclient
+    }, (error, count) => {
+        if (count > 0) return res.json({
+            ok: false
+        });
+        ttncreds({
+            ttn_user: this.body.ttnclient,
+            ttn_secret: this.body.ttnkey
+        }).save((error) => {
+            to.startOne(this.body.ttnclient, this.body.ttnkey);
+            return res.json({
+                ok: true
+            });
+        }).catch((error) => {
+            return res.json({
+                ok: false
+            });
+        });
+    });
 }).delete("/", (req, res) => {
 
 });
