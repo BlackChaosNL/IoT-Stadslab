@@ -19,7 +19,6 @@ const port = process.env.PORT || 3000,
   url = process.env.database || null,
   controllerDirectory = "./controllers/";
 
-console.log(dotenv.error);
 // Connect to database to enable
 mongoose.connect(url, {
   useNewUrlParser: true
