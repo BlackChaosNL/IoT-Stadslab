@@ -11,7 +11,7 @@ COPY package*.json ./
 RUN npm install
 
 # Copy folder
-COPY . /usr/src/app
+COPY . .
 
 # Expose the port to allow communication to flow through.
 EXPOSE 3000
