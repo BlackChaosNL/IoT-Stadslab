@@ -1,6 +1,6 @@
-# Internet of Things ReSTless API for the IoT Stadslab Den Bosch
+# IoT Stadslab Den Bosch
 ## Version
-To make sure versioning gets done correctly we are following [SamVer v2.0.0](https://www.semver.org)
+To make sure versioning gets done correctly we are following [SemVer v2.0.0](https://semver.org)
 
 The current version of the API is `0.1.0`.
 ## Description
