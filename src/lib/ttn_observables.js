@@ -1,6 +1,7 @@
 const ttncreds = require("../models/ttn_user"),
     ttn = require("ttn"),
-    data = require("../models/data");
+    data = require("../models/data"),
+    supp = require("./ttn_support");
 
 function startAll() {
     ttncreds.find({}).then((users) => {
@@ -9,12 +10,15 @@ function startAll() {
             ttn.data(client, password).then(c => {
                 c.on("uplink", (devId, payload) => {
                     if (payload.dev_id == null) return;
-                    data({
-                        sensor_id: payload.dev_id,
-                        sensor_data: Buffer.from(payload.payload_raw, 'hex')[0],
-                        sensor_time: payload.metadata.time
-                    }).save().catch((error) => {
-                        console.error(error);
+                    supp.translateTtnPayload(payload.payload_raw).forEach(item => {
+                        data({
+                            sensor_name: payload.dev_id,
+                            sensor_id: item[0],
+                            sensor_data: item[1],
+                            sensor_time: payload.metadata.time
+                        }).save().catch((error) => {
+                            console.error(error);
+                        });
                     });
                 });
             }).catch(error => {
@@ -28,13 +32,15 @@ function startOne(client, password) {
     ttn.data(client, password).then(c => {
         c.on("uplink", (devId, payload) => {
             if (payload.dev_id == null) return;
-            console.log(payload);
-            data({
-                sensor_id: payload.dev_id,
-                sensor_data: Buffer.from(payload.payload_raw, 'hex')[0],
-                sensor_time: payload.metadata.time
-            }).save().catch((error) => {
-                console.error(error);
+            supp.translateTtnPayload(payload.payload_raw).forEach(item => {
+                data({
+                    sensor_name: payload.dev_id,
+                    sensor_id: item[0],
+                    sensor_data: item[1],
+                    sensor_time: payload.metadata.time
+                }).save().catch((error) => {
+                    console.error(error);
+                });
             });
         });
     }).catch(error => {

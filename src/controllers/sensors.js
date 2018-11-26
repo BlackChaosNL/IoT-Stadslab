@@ -1,5 +1,5 @@
 const router = require("express").Router(),
-  data = require("../models/data");
+    data = require("../models/data");
 
 /**
  * @swagger
@@ -22,22 +22,25 @@ const router = require("express").Router(),
  *         description: Sensor data could not be saved to the API.
  */
 router.get("/", (req, res) => {
-  data.find({}).distinct('sensor_id', (err, sensordata) => {
-    return res.json(sensordata);
-  });
-}).post("/", (req, res) => {
-  data({
-    sensor_id: req.body.sensor_id,
-    sensor_data: req.body.sensor_data,
-    sensor_time: req.body.sensor_time
-  }).save((error) => {
-    return res.json({
-      ok: false
+    data.find({}).distinct('sensor_id', (error, dataset) => {
+        if (error) return res.status(404).json({
+            "message": error
+        });
+        return res.json(dataset);
     });
-  });
-  return res.json({
-    ok: true
-  });
+}).post("/", (req, res) => {
+    data({
+        sensor_id: req.body.sensor_id,
+        sensor_data: req.body.sensor_data,
+        sensor_time: req.body.sensor_time
+    }).save((error) => {
+        if (error) return res.status(404).json({
+            "message": error
+        });
+        return res.json({
+            ok: true
+        });
+    });
 });
 
 /**
@@ -53,13 +56,15 @@ router.get("/", (req, res) => {
  *         description: Sensor could not be found.
  */
 router.get("/:id", (req, res) => {
-  data.find({
-    sensor_id: req.params.id
-  }, (err, sensordata) => {
-    if (err) return res.status(404).json({});
-    if (sensordata == []) return res.status(404).json({});
-    return res.json(sensordata);
-  });
+    data.find({
+        sensor_id: req.params.id
+    }, (err, sensordata) => {
+        if (err) return res.status(404).json({
+            "message": err
+        });
+        if (sensordata === []) return res.status(404).json({});
+        return res.json(sensordata);
+    });
 });
 
 /**
@@ -78,21 +83,21 @@ router.get("/:id", (req, res) => {
  *     description: Returns a bindable socket for Socket.IO to bind to.
  */
 router.get("/:id/newest", (req, res) => {
-  data.find({
-    sensor_id: req.params.id
-  }).sort('-sensor_time').limit(1).exec((error, sensordata) => {
-    if (error) return res.status(404).json({
-      ok: false
+    data.find({
+        sensor_id: req.params.id
+    }).sort('-sensor_time').limit(1).exec((error, sensordata) => {
+        if (error) return res.status(404).json({
+            "message": error
+        });
+        if (sensordata === []) return res.status(404).json({
+            "message": ""
+        });
+        return res.json(sensordata);
     });
-    if (sensordata == []) return res.status(404).json({
-      ok: false
-    });
-    return res.json(sensordata);
-  });
 }).get("/:id/newest/socket", (req, res) => {
-  data.watch().on('change', data => {
-    return res.json(data);
-  })
+    data.watch().on('change', data => {
+        return res.json(data);
+    })
 });
 
 

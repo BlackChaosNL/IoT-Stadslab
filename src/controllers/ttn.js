@@ -34,20 +34,18 @@ router.post("/", (req, res) => {
         });
         ttncreds({
             ttn_user: this.body.ttnclient,
-            ttn_secret: this.body.ttnkey
+            ttn_secret: this.body.ttnsecret
         }).save((error) => {
-            to.startOne(this.body.ttnclient, this.body.ttnkey);
+            to.startOne(this.body.ttnclient, this.body.ttnsecret);
             return res.json({
                 ok: true
             });
         }).catch((error) => {
-            return res.json({
+            return res.status(404).json({
                 ok: false
             });
         });
     });
-}).delete("/", (req, res) => {
-
-});
+}).delete("/", (req, res) => {});
 
 module.exports = router;

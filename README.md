@@ -23,12 +23,13 @@ To visualize the data gathered from the API, a dashboard will be developed. The 
   * Update NodeJS to latest revision with `npm i -g npm`.
 * Installation
   * `git clone` this repository.
-  * Run the installation with `npm i`
-  * Rename `.env.default` in `/src/environment` to `.env`
+  * Run the installation with `npm i`.
+  * Create a copy of `.env.default` and name this `.env`.
+  * Get your The Things Network credentials in the [Console Part](https://console.thethingsnetwork.org/applications/) of the website.
   * Fill in the following credentials in the `.env` file:
-    * `database=your-mongodb-database`
-    * `ttnclient=your client details for The Things Network`
-    * `ttnsecret=your secret detail for The Things Network`
+    * `database="your-mongodb-database"`
+    * `ttnclient="your client details for The Things Network"`
+    * `ttnsecret="your secret detail for The Things Network"`
 * Start
   * Use `npm start`
 
