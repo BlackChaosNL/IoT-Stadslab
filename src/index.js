@@ -14,7 +14,7 @@ const express = require("express"),
     dist = require("../package.json"),
     app = express();
 
-const port = process.env.port || 3000,
+const port = process.env.port || process.env.PORT || 3000,
     client = process.env.ttnclient || null,
     password = process.env.ttnsecret || null,
     url = process.env.database || null,
