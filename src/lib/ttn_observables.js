@@ -1,6 +1,6 @@
 const ttncreds = require("../models/ttn_user"),
     ttn = require("ttn"),
-    data = require("../models/data"),
+    data = require("../models/sensor"),
     supp = require("./ttn_support");
 
 function startAll() {
@@ -11,7 +11,7 @@ function startAll() {
                 c.on("uplink", (devId, payload) => {
                     if (payload.dev_id == null) return;
                     supp.translateTtnPayload(payload.payload_raw).forEach(item => {
-                        data({
+                        sensor({
                             sensor_name: payload.dev_id,
                             sensor_id: item[0],
                             sensor_data: item[1],

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-module.exports = mongoose.model("data", new mongoose.Schema({
+module.exports = mongoose.model("sensor", new mongoose.Schema({
     sensor_name: String,
     sensor_id: String,
     sensor_data: Number,

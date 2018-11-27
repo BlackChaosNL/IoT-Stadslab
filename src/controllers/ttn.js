@@ -3,27 +3,35 @@ const router = require("express").Router(),
 
 /**
  * @swagger
- * /ttn/:
+ * '/v0/ttn/':
  *   post:
+ *     tags:
+ *      - The Things Network
  *     description: Saves the Client and Secret of The Things Network to the database to scrape the sensor data.
  *     produces: application/json
- *     response:
- *       '200':
+ *     responses:
+ *       200:
  *         description: Returns whether the sensordata got saved.
- *       '404':
+ *       404:
  *         description: Sensor data could not be saved to the API.
+ *         $ref: '#/definitions/NotSavedError'
+ *
  *   delete:
+ *     tags:
+ *      - The Things Network
  *     description: Removes the client and secret of The Things Network details.
  *     produces: application/json
- *     response:
- *       '200':
+ *     responses:
+ *       200:
  *         description: Returns whether the client and secret have been removed.
- *       '404':
+ *       404:
  *         description: Data could not be found.
+ *         $ref: '#/definitions/NotFoundError'
  */
+
 router.post("/", (req, res) => {
-    if (this.body.ttnclient == null) return res.json({
-        ok: false
+    if (this.body.ttnclient == null || this.body.ttnsecret == null) return res.status(404).json({
+        "message": "Fill in the ttnclient & ttnsecret keys"
     });
 
     ttncreds.count({

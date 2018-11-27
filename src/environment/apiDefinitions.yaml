@@ -1,0 +1,49 @@
+openapi:                     3.0
+
+tags:
+  - name:                    Sensors
+    description:             Everything sensor related.
+  - name:                    The Things Network
+    description:             Usage of The Things Network credentials for gathering Sensor data.
+  - name:                    Swagger
+    description:             Exposes the documentation for usage with ReDoc.
+
+x-tagGroups:
+  - name:                    General
+    tags:
+      - Sensors
+      - The Things Network
+
+definitions:
+  Sensor:
+    required:
+      - sensor_name
+      - sensor_id
+      - sensor_data
+      - sensor_time
+    properties:
+      sensor_name:
+        type:                String
+      sensor_id:
+        type:                String
+      sensor_data:
+        type:                Number
+
+  Error:
+    properties:
+      message:
+        type:                String
+
+  NotFoundError:
+        description:         Resource has not been found.
+        content:
+          application/json:
+            schema:
+              $ref:          '#/definitions/Error'
+
+  NotSavedError:
+        description:         Resource has not been saved because an error occured.
+        content:
+          application/json:
+            schema:
+              $ref:          '#/definitions/Error'

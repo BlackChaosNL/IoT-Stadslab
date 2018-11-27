@@ -6,11 +6,12 @@ const express = require("express"),
     path = require('path'),
     serveStatic = require("serve-static"),
     mongoose = require("mongoose"),
-    data = require("./models/data"),
+    data = require("./models/sensor"),
     dotenv = require('dotenv').config({
         path: path.resolve(process.cwd() + "/src/environment", '.env')
     }),
     to = require("./lib/ttn_observables"),
+    dist = require("../package.json"),
     app = express();
 
 const port = process.env.port || 3000,
@@ -36,15 +37,13 @@ app.options("*", cors());
 
 // Load controllers from ./controllers and make them active routes.
 fs.readdirSync(path.join(__dirname, "./controllers")).forEach(file => {
-    app.use("/" + file.split(".")[0],
+    app.use("/v" + dist.version.split(".")[0] + "/" + file.split(".")[0],
         require(controllerDirectory + file.split(".")[0]));
 });
 
 // Serve ReDoc as single page application, employer didn't need more.
+app.use("/redoc", express.static(path.join(__dirname, '../node_modules/redoc/bundles/')));
 app.get("/", express.static(path.join(__dirname, 'static')));
-app.use(serveStatic('public/html', {
-    'index': ['default.html', 'default.htm']
-}));
 
 // If page cannot be found, throw a 404.
 app.use((req, res, next) => {
