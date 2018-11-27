@@ -29,6 +29,16 @@ definitions:
       sensor_data:
         type:                Number
 
+   ttn_user:
+     required:
+       - ttn_user
+       - ttn_secret
+    properties:
+      ttn_user:
+        type:                String
+      ttn_secret:
+        type:                String
+
   Error:
     properties:
       message:

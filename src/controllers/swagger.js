@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
     return res.json(swagger({
         swaggerDefinition: {
             info: {
-                title: "Hackaton IoT Dataweek",
+                title: "API IoT Stadslab Den Bosch",
                 version: dist.version,
                 description: dist.description || "Nondescript",
             },

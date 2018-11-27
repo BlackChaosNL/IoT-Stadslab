@@ -1,6 +1,6 @@
 {
-  "name": "hackaton-iot-dataweek",
-  "version": "0.1.0",
+  "name": "iot-stadslab",
+  "version": "0.2.0",
   "description": "ReSTful API and Front-end for virtualising IoT Data from The Things Network",
   "main": "src/index.js",
   "scripts": {
