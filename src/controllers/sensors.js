@@ -42,7 +42,7 @@ const router = require("express").Router(),
  */
 
 router.get("/", (req, res) => {
-    data.find({}).distinct('sensor_id', (error, dataset) => {
+    data.find({}).distinct('sensor_name', (error, dataset) => {
         if (error) return res.status(404).json({
             "message": error
         });
