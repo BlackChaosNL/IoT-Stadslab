@@ -69,7 +69,7 @@ router.get("/", (req, res) => {
  *   get:
  *     tags:
  *      - Sensors
- *     description: Returns all data from specified sensor.
+ *     description: Returns all sensordata from this single node.
  *     produces: application/json
  *     responses:
  *       200:
@@ -87,6 +87,66 @@ router.get("/:id", (req, res) => {
             "message": err
         });
         if (sensordata === []) return res.status(404).json({});
+        return res.json(sensordata);
+    });
+});
+
+/**
+ * @swagger
+ * '/v0/sensors/{name}/{sensor_id}':
+ *   get:
+ *     tags:
+ *      - Sensors
+ *     description: Returns all data from specified sensor.
+ *     produces: application/json
+ *     responses:
+ *       200:
+ *         description: Returns a list of unique sensors.
+ *       404:
+ *         description: Sensor could not be found.
+ *         $ref: '#/definitions/NotFoundError'
+ */
+
+router.get("/:id/:sensor_id", (req, res) => {
+    data.find({
+        sensor_name: req.params.id,
+        sensor_id: req.params.sensor_id
+    }, (err, sensordata) => {
+        if (err) return res.status(404).json({
+            "message": err
+        });
+        if (sensordata === []) return res.status(404).json({});
+        return res.json(sensordata);
+    });
+});
+
+/**
+ * @swagger
+ * '/v0/sensors/{name}/{sensor_id}/newest':
+ *   get:
+ *     tags:
+ *      - Sensors
+ *     description: Returns the latest data from specified sensor.
+ *     produces: application/json
+ *     responses:
+ *       200:
+ *         description: Returns the last recorded sensor data.
+ *       404:
+ *         description: Sensor or data could not be found.
+ *         $ref: '#/definitions/NotFoundError'
+ */
+
+router.get("/:id/:sensor_id/newest", (req, res) => {
+    data.find({
+        sensor_name: req.params.id,
+        sensor_id: req.params.sensor_id
+    }).sort('-sensor_time').limit(1).exec((error, sensordata) => {
+        if (error) return res.status(404).json({
+            "message": error
+        });
+        if (sensordata === []) return res.status(404).json({
+            "message": ""
+        });
         return res.json(sensordata);
     });
 });
