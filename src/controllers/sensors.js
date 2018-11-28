@@ -81,7 +81,7 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
     data.find({
-        sensor_id: req.params.id
+        sensor_name: req.params.id
     }, (err, sensordata) => {
         if (err) return res.status(404).json({
             "message": err
@@ -114,7 +114,7 @@ router.get("/:id", (req, res) => {
 
 router.get("/:id/newest", (req, res) => {
     data.find({
-        sensor_id: req.params.id
+        sensor_name: req.params.id
     }).sort('-sensor_time').limit(1).exec((error, sensordata) => {
         if (error) return res.status(404).json({
             "message": error
