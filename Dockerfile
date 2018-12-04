@@ -1,6 +1,9 @@
 # Get smallest possible Linux variant to run Node Server.
 FROM node:8-alpine
 
+# Add Git to pull TTN module.
+RUN apk add --no-cache git
+
 # Create a directory to save the API in.
 WORKDIR /usr/src/app
 
