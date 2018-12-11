@@ -1,8 +1,11 @@
 # IoT Stadslab Den Bosch
+[![Build Status](https://travis-ci.org/BlackChaosNL/IoT-Stadslab.svg?branch=master)](https://travis-ci.org/BlackChaosNL/IoT-Stadslab)
+[![Known Vulnerabilities](https://snyk.io/test/github/BlackChaosNL/IoT-Stadslab/badge.svg)](https://snyk.io/test/github/BlackChaosNL/IoT-Stadslab)
+[![Coverage Status](https://coveralls.io/repos/github/BlackChaosNL/IoT-Stadslab/badge.svg?branch=master)](https://coveralls.io/github/BlackChaosNL/IoT-Stadslab?branch=master)
 ## Version
 To make sure versioning gets done correctly we are following [SemVer v2.0.0](https://semver.org)
 
-The current version of the API is `0.1.0`.
+The current version of the API is `0.2.0`.
 ## Description
 ### Nederlands
 Wij zijn vijf studenten van Avans 's-Hertogenbosch, wij doen een minor genaamde "De Vrije Minor".
@@ -66,5 +69,4 @@ To visualize the data gathered from the API, a dashboard will be developed. The 
 * To view a sample of the API docs, a demo is hosted at [IoT Stadslab](https://iotstadslab.herokuapp.com).
 
 ### ToDo's
-- [ ] Fix TTN observable to allow longer strings to be recieved.
 - [ ] Write Docker part of the README.

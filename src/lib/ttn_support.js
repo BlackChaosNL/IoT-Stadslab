@@ -1,6 +1,6 @@
 function hex2bin(hex) {
     return (parseInt(hex, 16).toString(2)).padStart(8, '0');
-};
+}
 
 function translateTtnPayload(ttnPayload) {
     var decodedPayload = "";
@@ -17,7 +17,7 @@ function translateTtnPayload(ttnPayload) {
     });
 
     return decodedNumbers;
-};
+}
 
 module.exports = {
     translateTtnPayload

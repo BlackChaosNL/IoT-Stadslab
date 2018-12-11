@@ -1,40 +1,51 @@
 {
-  "name": "iot-stadslab",
-  "version": "0.2.0",
-  "description": "ReSTful API and Front-end for virtualising IoT Data from The Things Network",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "node src/index.js",
-    "nodemon": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/BlackChaosNL/Hackaton-IoT-Dataweek.git"
-  },
-  "author": "Jeroen Vijgen",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/BlackChaosNL/Hackaton-IoT-Dataweek/issues"
-  },
-  "homepage": "https://github.com/BlackChaosNL/Hackaton-IoT-Dataweek#readme",
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "cors": "^2.8.4",
-    "dotenv": "^6.1.0",
-    "express": "^4.16.4",
-    "fs": "0.0.1-security",
-    "grpc": "^1.16.1",
-    "hoek": ">=4.2.1",
-    "mongoose": "^5.3.6",
-    "nodemon": "^1.18.7",
-    "redoc": "^2.0.0-alpha.40",
-    "serve-static": "^1.13.2",
-    "snyk": "^1.116.4",
-    "swagger-jsdoc": "^1.10.0",
-    "ttn": "^2.3.1"
-  },
-  "snyk": true
+    "name": "iot-stadslab",
+    "version": "0.2.0",
+    "description": "ReSTful API and Front-end for virtualising IoT Data from The Things Network",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "node src/index.js",
+        "nodemon": "nodemon",
+        "test": "make test",
+        "snyk-protect": "snyk protect",
+        "prepare": "npm run snyk-protect",
+        "coverage": "nyc report --reporter=text-lcov | coveralls"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/BlackChaosNL/Hackaton-IoT-Dataweek.git"
+    },
+    "author": "Jeroen Vijgen",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/BlackChaosNL/Hackaton-IoT-Dataweek/issues"
+    },
+    "homepage": "https://github.com/BlackChaosNL/Hackaton-IoT-Dataweek#readme",
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "cors": "^2.8.4",
+        "dotenv": "^6.1.0",
+        "express": "^4.16.4",
+        "fs": "0.0.1-security",
+        "grpc": "^1.16.1",
+        "hoek": ">=4.2.1",
+        "mongoose": "^5.3.6",
+        "nodemon": "^1.18.7",
+        "redoc": "^2.0.0-alpha.40",
+        "serve-static": "^1.13.2",
+        "snyk": "^1.116.4",
+        "swagger-jsdoc": "^1.10.0",
+        "ttn": "^2.3.1"
+    },
+    "devDependencies": {
+        "chai": "^4.1.2",
+        "coveralls": "^3.0.0",
+        "faker": "^4.1.0",
+        "jshint": "^2.9.5",
+        "mocha": "^5.0.1",
+        "nodemon": "^1.17.3",
+        "nyc": "^11.6.0",
+        "supertest": "^3.0.0"
+    },
+    "snyk": true
 }

@@ -187,7 +187,7 @@ router.get("/:id/newest", (req, res) => {
 }).get("/:id/newest/socket", (req, res) => {
     data.watch().on('change', data => {
         return res.json(data);
-    })
+    });
 });
 
 

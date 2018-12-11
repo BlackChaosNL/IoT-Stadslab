@@ -26,7 +26,7 @@ function startAll() {
             });
         });
     });
-};
+}
 
 function startOne(client, password) {
     ttn.data(client, password).then(c => {
@@ -46,7 +46,7 @@ function startOne(client, password) {
     }).catch(error => {
         console.log(error);
     });
-};
+}
 
 module.exports = {
     startAll,
