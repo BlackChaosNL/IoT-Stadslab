@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node src/index.js",
     "nodemon": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -30,7 +32,9 @@
     "nodemon": "^1.18.7",
     "redoc": "^2.0.0-alpha.40",
     "serve-static": "^1.13.2",
+    "snyk": "^1.116.4",
     "swagger-jsdoc": "^1.10.0",
     "ttn": "^2.3.1"
-  }
+  },
+  "snyk": true
 }
