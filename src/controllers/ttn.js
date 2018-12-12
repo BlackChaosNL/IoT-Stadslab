@@ -1,5 +1,6 @@
 const router = require("express").Router(),
-    to = require("../lib/ttn_observables");
+    to = require("../lib/ttn_observables"),
+    ttncreds = require("../models/ttn_user");
 
 /**
  * @swagger
@@ -30,21 +31,23 @@ const router = require("express").Router(),
  */
 
 router.post("/", (req, res) => {
-    if (this.body.ttnclient == null || this.body.ttnsecret == null) return res.status(404).json({
+    if (req.body.ttnclient == null || req.body.ttnsecret == null) return res.status(200).json({
+        "ok": false,
         "message": "Fill in the ttnclient & ttnsecret keys"
     });
 
-    ttncreds.count({
-        ttn_user: this.body.ttnclient
+    ttncreds.countDocuments({
+        ttn_user: req.body.ttnclient
     }, (error, count) => {
         if (count > 0) return res.json({
-            ok: false
+            ok: false,
+            message: "Someone already pushed these the Things Network Credentials in."
         });
         ttncreds({
-            ttn_user: this.body.ttnclient,
-            ttn_secret: this.body.ttnsecret
+            ttn_user: req.body.ttnclient,
+            ttn_secret: req.body.ttnsecret
         }).save((error) => {
-            to.startOne(this.body.ttnclient, this.body.ttnsecret);
+            to.startOne(req.body.ttnclient, req.body.ttnsecret);
             return res.json({
                 ok: true
             });

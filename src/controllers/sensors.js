@@ -49,7 +49,17 @@ router.get("/", (req, res) => {
         return res.json(dataset);
     });
 }).post("/", (req, res) => {
-    sensor({
+    if (req.body.sensor_name == null ||
+        req.body.sensor_id == null ||
+        req.body.sensor_data == null) {
+        return res.status(200).json({
+            ok: false,
+            message: "Please full in the sensor name, id and data."
+        });
+    }
+
+    data({
+        sensor_name: req.body.sensor_name,
         sensor_id: req.body.sensor_id,
         sensor_data: req.body.sensor_data,
         sensor_time: req.body.sensor_time

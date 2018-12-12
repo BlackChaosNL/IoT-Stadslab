@@ -6,6 +6,7 @@ test: static unit
 
 static:
 	$(jshint) --verbose src
+	$(jshint) --verbose test
 
 unit:
 	APP_ENV=test $(bindir)/nyc $(bindir)/mocha
