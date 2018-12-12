@@ -51,10 +51,6 @@ router.post("/", (req, res) => {
             return res.json({
                 ok: true
             });
-        }).catch((error) => {
-            return res.status(404).json({
-                ok: false
-            });
         });
     });
 }).delete("/", (req, res) => {});
