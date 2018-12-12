@@ -20,5 +20,6 @@ function translateTtnPayload(ttnPayload) {
 }
 
 module.exports = {
+    hex2bin,
     translateTtnPayload
 };

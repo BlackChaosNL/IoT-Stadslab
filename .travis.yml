@@ -1,8 +1,13 @@
-language: node_js
+language:           node_js
 nodejs:
   - 11
 
 services:
   - mongodb
 
-after_success: npm run coverage
+cache:
+  directories:
+    - "node_modules"
+
+
+after_success:      npm run coverage

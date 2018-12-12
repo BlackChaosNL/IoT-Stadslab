@@ -22,4 +22,14 @@ describe("Test Global endpoints", () => {
                 done();
             });
     });
+
+    it("Should display a 404 when nothing is found", done => {
+        request(app)
+            .get("/asdohjasukiodhasuihdhui")
+            .expect(404)
+            .end((err, res) => {
+                assert.ifError(err);
+                done();
+            });
+    });
 });
