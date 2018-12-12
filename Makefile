@@ -9,6 +9,6 @@ static:
 	$(jshint) --verbose test
 
 unit:
-	APP_ENV=test $(bindir)/nyc $(bindir)/mocha
+	APP_ENV=test $(bindir)/nyc $(bindir)/mocha --exit
 
 .PHONY: test
