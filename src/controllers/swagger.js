@@ -21,7 +21,7 @@ router.get("/", (req, res) => {
             info: {
                 title: "API IoT Stadslab Den Bosch",
                 version: dist.version,
-                description: dist.description || "Nondescript",
+                description: dist.description,
             },
             host: "iotstadslab.herokuapp.com",
             basePath: "/",

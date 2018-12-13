@@ -59,4 +59,6 @@ to.startOne(client, password);
 // Start the user configured TTN observables
 to.startAll();
 
+app.listen(port);
+
 module.exports = app;
