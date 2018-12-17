@@ -52,6 +52,17 @@ describe("Test Sensor endpoint", () => {
             });
     });
 
+    it("Should return newest harvested sensor data from a node", done => {
+        request(app)
+            .get("/v0/sensors/Woah/0/newest")
+            .expect(200)
+            .end((err, res) => {
+                assert.ifError(err);
+                assert.isArray(res.body);
+                done();
+            });
+    });
+
     it("Should not save sensor data when body is empty", done => {
         request(app)
             .post("/v0/sensors")

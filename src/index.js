@@ -54,7 +54,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// Start the default
+// Start the default TTN listener
 to.startOne(client, password);
 // Start the user configured TTN observables
 to.startAll();

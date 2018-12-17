@@ -1,5 +1,6 @@
 const router = require("express").Router(),
-    data = require("../models/sensor");
+    data = require("../models/sensor"),
+    obj = require("../lib/object");
 
 /**
  * @swagger
@@ -46,6 +47,9 @@ router.get("/", (req, res) => {
         if (error) return res.status(404).json({
             "message": error
         });
+        if (obj.isEmpty(dataset)) return res.status(404).json({
+            "message": "No sensor data is present."
+        });
         return res.json(dataset);
     });
 }).post("/", (req, res) => {
@@ -54,7 +58,7 @@ router.get("/", (req, res) => {
         req.body.sensor_data == null) {
         return res.status(200).json({
             ok: false,
-            message: "Please full in the sensor name, id and data."
+            message: "Please fill in the sensor name, id and data."
         });
     }
 
@@ -96,7 +100,9 @@ router.get("/:id", (req, res) => {
         if (err) return res.status(404).json({
             "message": err
         });
-        if (sensordata === []) return res.status(404).json({});
+        if (obj.isEmpty(sensordata)) return res.status(404).json({
+            "message": "Sensor could not be found."
+        });
         return res.json(sensordata);
     });
 });
@@ -125,7 +131,9 @@ router.get("/:id/:sensor_id", (req, res) => {
         if (err) return res.status(404).json({
             "message": err
         });
-        if (sensordata === []) return res.status(404).json({});
+        if (obj.isEmpty(sensordata)) return res.status(404).json({
+            "message": "Could not find a node or sensor."
+        });
         return res.json(sensordata);
     });
 });
@@ -144,6 +152,19 @@ router.get("/:id/:sensor_id", (req, res) => {
  *       404:
  *         description: Sensor or data could not be found.
  *         $ref: '#/definitions/NotFoundError'
+ * '/v0/sensors/{name}/{sensor_id}/newest/socket':
+ *   get:
+ *     tags:
+ *      - Sensors
+ *     description: Returns the latest data from specified sensor in a socket.
+ *     produces: application/json
+ *     responses:
+ *       200:
+ *         description: Returns the last recorded sensor data.
+ *       404:
+ *         description: Sensor or data could not be found.
+ *         $ref: '#/definitions/NotFoundError'
+
  */
 
 router.get("/:id/:sensor_id/newest", (req, res) => {
@@ -154,51 +175,15 @@ router.get("/:id/:sensor_id/newest", (req, res) => {
         if (error) return res.status(404).json({
             "message": error
         });
-        if (sensordata === []) return res.status(404).json({
-            "message": ""
+        if (obj.isEmpty(sensordata)) return res.status(404).json({
+            "message": "Could not find a node or sensor."
         });
         return res.json(sensordata);
     });
-});
-
-/**
- * @swagger
- * '/v0/sensors/{id}/newest':
- *   get:
- *     tags:
- *      - Sensors
- *     description: Returns last recieved data.
- *     produces: application/json
- *     responses:
- *       200:
- *         description: Returns the latest data point from the requested sensor.
- *       404:
- *         description: Sensor could not be found.
- *         $ref: '#/definitions/NotFoundError'
- * /sensors/{id}/newest/socket:
- *   get:
- *     tags:
- *      - Sensors
- *     description: Returns a bindable socket for Socket.IO to bind to.
- */
-
-router.get("/:id/newest", (req, res) => {
-    data.find({
-        sensor_name: req.params.id
-    }).sort('-sensor_time').limit(1).exec((error, sensordata) => {
-        if (error) return res.status(404).json({
-            "message": error
-        });
-        if (sensordata === []) return res.status(404).json({
-            "message": ""
-        });
-        return res.json(sensordata);
-    });
-}).get("/:id/newest/socket", (req, res) => {
+}).get("/:id/:sensor_id/newest/socket", (req, res) => {
     data.watch().on('change', data => {
         return res.json(data);
     });
 });
-
 
 module.exports = router;
