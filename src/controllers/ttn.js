@@ -43,14 +43,19 @@ router.post("/", (req, res) => {
             ok: false,
             message: "Someone already pushed these the Things Network Credentials in."
         });
+
         ttncreds({
             ttn_user: req.body.ttnclient,
             ttn_secret: req.body.ttnsecret
         }).save((error) => {
-            to.startOne(req.body.ttnclient, req.body.ttnsecret);
-            return res.json({
-                ok: true
+            return res.status(404).json({
+                "message": error
             });
+        });
+
+        to.startOne(req.body.ttnclient, req.body.ttnsecret);
+        return res.json({
+            ok: true
         });
     });
 }).delete("/", (req, res) => {});

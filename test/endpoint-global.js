@@ -19,6 +19,7 @@ describe("Test Global endpoints", () => {
             .expect(200)
             .end((err, res) => {
                 assert.ifError(err);
+                assert.isObject(res.body, "getting a filled response back.");
                 done();
             });
     });
@@ -29,6 +30,7 @@ describe("Test Global endpoints", () => {
             .expect(404)
             .end((err, res) => {
                 assert.ifError(err);
+                assert.exists(res.body.message, "404 message does not show up.");
                 done();
             });
     });
