@@ -51,11 +51,10 @@ router.post("/", (req, res) => {
             return res.status(404).json({
                 "message": error
             });
-        });
-
-        to.startOne(req.body.ttnclient, req.body.ttnsecret);
-        return res.json({
-            ok: true
+            to.startOne(req.body.ttnclient, req.body.ttnsecret);
+            return res.json({
+                ok: true
+            });
         });
     });
 }).delete("/", (req, res) => {});
