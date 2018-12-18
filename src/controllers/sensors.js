@@ -152,19 +152,6 @@ router.get("/:id/:sensor_id", (req, res) => {
  *       404:
  *         description: Sensor or data could not be found.
  *         $ref: '#/definitions/NotFoundError'
- * '/v0/sensors/{name}/{sensor_id}/newest/socket':
- *   get:
- *     tags:
- *      - Sensors
- *     description: Returns the latest data from specified sensor in a socket.
- *     produces: application/json
- *     responses:
- *       200:
- *         description: Returns the last recorded sensor data.
- *       404:
- *         description: Sensor or data could not be found.
- *         $ref: '#/definitions/NotFoundError'
-
  */
 
 router.get("/:id/:sensor_id/newest", (req, res) => {
@@ -179,10 +166,6 @@ router.get("/:id/:sensor_id/newest", (req, res) => {
             "message": "Could not find a node or sensor."
         });
         return res.json(sensordata);
-    });
-}).get("/:id/:sensor_id/newest/socket", (req, res) => {
-    data.watch().on('change', data => {
-        return res.json(data);
     });
 });
 

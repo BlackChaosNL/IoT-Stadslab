@@ -1,13 +1,21 @@
 const app = require("../src/index");
 const request = require("supertest");
 const assert = require("chai").assert;
+const ttn = require("../src/models/ttn_user");
+
+before(() => {
+    ttn({
+        ttnclient: "Blablabla",
+        ttnsecret: "Blablablablabla"
+    }).save();
+});
 
 describe("Test The Things Network endpoints", () => {
     it("Should save the Things Network Credentials to the API", done => {
         request(app)
             .post("/v0/ttn/")
             .send({
-                ttnclient: "Blablabla",
+                ttnclient: "Blablablaaa",
                 ttnsecret: "Blablablablabla"
             })
             .expect(200)
@@ -24,10 +32,6 @@ describe("Test The Things Network endpoints", () => {
                 ttnclient: "Blablabla",
                 ttnsecret: "Blablablablabla"
             })
-            .send({
-                ttnclient: "Blablabla",
-                ttnsecret: "Blablablablabla"
-            })
             .expect(200)
             .end((err, res) => {
                 assert.ifError(err);
@@ -36,4 +40,8 @@ describe("Test The Things Network endpoints", () => {
                 done();
             });
     });
+});
+
+after(() => {
+    ttn.deleteMany();
 });
