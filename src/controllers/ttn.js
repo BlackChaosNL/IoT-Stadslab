@@ -31,31 +31,35 @@ const router = require("express").Router(),
  */
 
 router.post("/", (req, res) => {
-    if (req.body.ttnclient == null || req.body.ttnsecret == null) return res.status(200).json({
+    const ttnclient = req.body.ttnclient;
+    const ttnkey = req.body.ttnkey;
+    if (ttnclient == null || ttnkey == null) return res.status(200).json({
         "ok": false,
         "message": "Fill in the ttnclient & ttnsecret keys"
     });
 
     ttncreds.countDocuments({
-        ttn_user: req.body.ttnclient
+        ttn_user: ttnclient
     }, (error, count) => {
         if (count > 0) return res.json({
             ok: false,
             message: "Someone already pushed these the Things Network Credentials in."
         });
+    });
 
-        ttncreds({
-            ttn_user: req.body.ttnclient,
-            ttn_secret: req.body.ttnsecret
-        }).save((error) => {
-            return res.status(404).json({
-                "message": error
-            });
-            to.startOne(req.body.ttnclient, req.body.ttnsecret);
-            return res.json({
-                ok: true
-            });
+    ttncreds({
+        ttn_user: ttnclient,
+        ttn_secret: ttnkey
+    }).save((error) => {
+        return res.status(404).json({
+            "message": error
         });
+    });
+
+    to.startOne(ttnclient, ttnkey);
+
+    return res.json({
+        ok: true
     });
 }).delete("/", (req, res) => {});
 
