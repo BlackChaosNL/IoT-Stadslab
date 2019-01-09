@@ -2,7 +2,7 @@
 FROM node:11-alpine
 
 # Add Git to pull TTN module.
-RUN apk add --no-cache bash git openssh
+RUN apk add --no-cache bash git
 
 # Create a directory to save the API in.
 WORKDIR /usr/src/app

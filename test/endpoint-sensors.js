@@ -22,7 +22,7 @@ describe("Test Sensor endpoint", () => {
                 assert.equal("iot_stadslab_node_1", res.body[0]);
                 done();
             });
-    });
+    }).timeout(5000);
 
     it("Should save sensor data", done => {
         request(app)

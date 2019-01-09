@@ -4,9 +4,7 @@ const express = require("express"),
     cors = require("cors"),
     fs = require("fs"),
     path = require('path'),
-    serveStatic = require("serve-static"),
     mongoose = require("mongoose"),
-    data = require("./models/sensor"),
     dotenv = require('dotenv').config({
         path: path.resolve(process.cwd() + "/src/environment", '.env')
     }),
@@ -15,8 +13,6 @@ const express = require("express"),
     app = express();
 
 const port = process.env.port || process.env.PORT || 3000,
-    client = process.env.ttnclient || null,
-    password = process.env.ttnsecret || null,
     url = process.env.database || null,
     controllerDirectory = "./controllers/";
 
@@ -54,8 +50,6 @@ app.use((req, res, next) => {
     next();
 });
 
-// Start the default TTN listener
-to.startOne(client, password);
 // Start the user configured TTN observables
 to.startAll();
 
