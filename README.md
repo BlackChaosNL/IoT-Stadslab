@@ -3,6 +3,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/BlackChaosNL/IoT-Stadslab/badge.svg)](https://snyk.io/test/github/BlackChaosNL/IoT-Stadslab)
 [![Coverage Status](https://coveralls.io/repos/github/BlackChaosNL/IoT-Stadslab/badge.svg?branch=master)](https://coveralls.io/github/BlackChaosNL/IoT-Stadslab?branch=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Dependancies](https://david-dm.org/BlackChaosNL/IoT-Stadslab.svg)](https://david-dm.org/)
 ## Version
 To make sure versioning gets done correctly we are following [SemVer v2.0.0](https://semver.org)
 

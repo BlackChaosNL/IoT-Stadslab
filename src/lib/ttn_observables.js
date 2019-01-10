@@ -7,23 +7,7 @@ function startAll() {
     ttncreds.find({}).then((users) => {
         if (users.length <= 0) return;
         users.forEach(u => {
-            ttn.data(u.ttn_user, u.ttn_secret).then(c => {
-                c.on("uplink", (devId, payload) => {
-                    if (payload.dev_id == null) return;
-                    supp.translateTtnPayload(payload.payload_raw).forEach(item => {
-                        sensor({
-                            sensor_name: payload.dev_id,
-                            sensor_id: item[0],
-                            sensor_data: item[1],
-                            sensor_time: payload.metadata.time
-                        }).save();
-                    });
-                });
-            }).catch(error => {
-                ttncreds.findOneAndDelete({
-                    ttn_user: u.ttn_user
-                });
-            });
+            startOne(u.ttn_user, u.ttn_secret);
         });
     });
 }
@@ -38,13 +22,25 @@ function startOne(client, password) {
                     sensor_id: item[0],
                     sensor_data: item[1],
                     sensor_time: payload.metadata.time
-                }).save().catch((error) => {
-                    console.error(error);
-                });
+                }).save();
             });
         });
     }).catch(error => {
-        console.log(error);
+        errors = ttncreds.find({
+            ttn_user: client
+        });
+
+        user = ttncreds.findOneAndUpdate({
+            ttn_user: client
+        }, {
+            error: errors.error + 1
+        });
+
+        if (user.error > 4) {
+            ttncreds.findOneAndDelete({
+                ttn_user: client
+            });
+        }
     });
 }
 
