@@ -10,6 +10,9 @@ WORKDIR /usr/src/app
 # Copy the package.json and package-lock.json
 COPY package*.json ./
 
+# Copy default env variables, so it can be used immediately after pulling from the repository.
+COPY src/environment/.env.default src/environment/.env
+
 # Install dependancies to Alpine
 RUN npm install
 
