@@ -1,7 +1,8 @@
 const ttncreds = require("../models/ttn_user"),
     ttn = require("ttn"),
     data = require("../models/sensor"),
-    supp = require("./ttn_support");
+    supp = require("./ttn_support"),
+    socket = require("./sockets");
 
 function startAll() {
     ttncreds.find({}).then((users) => {
@@ -23,6 +24,8 @@ function startOne(client, password) {
                     sensor_data: item[1],
                     sensor_time: payload.metadata.time
                 }).save();
+                socket.emit(payload.dev_id, { sensor_id: item[0], 
+                    sensor_data: item[1] });
             });
         });
     }).catch(error => {
