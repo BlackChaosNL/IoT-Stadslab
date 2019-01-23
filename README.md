@@ -33,8 +33,6 @@ To visualize the data gathered from the API, a dashboard will be developed. The 
   * Get your The Things Network credentials in the [Console Part](https://console.thethingsnetwork.org/applications/) of the website.
   * Fill in the following credentials in the `.env` file:
     * `database="your-mongodb-database"`
-    * `ttnclient="your client details for The Things Network"`
-    * `ttnsecret="your secret detail for The Things Network"`
 * Start
   * Use `npm start`
 
@@ -52,8 +50,6 @@ To visualize the data gathered from the API, a dashboard will be developed. The 
   * Click on `Reveal Config Vars`.
   * Fill in the following credentials:
     * `database = your-mongodb-database`
-    * `ttnclient = your client details for The Things Network`
-    * `ttnsecret = your secret detail for The Things Network`
 * Enable Deployment for your App.
   * Select `Deploy`.
   * Select `GitHub`.
@@ -63,15 +59,26 @@ To visualize the data gathered from the API, a dashboard will be developed. The 
 * Press `Open app` to go to your newly deployed API.
 
 #### Docker
-* To be written.
+* Install [Docker](https://docs.docker.com/docker-for-windows/) on your machine.
+* `git clone` this repository.
+* Use `docker build -t iotstadslab .`
+* Immediately after use: `docker save iotstadslab > iotstadslab.tar`
+* Upload this image to the Synology Nas at `192.168.1.111:5000` in a folder of your choosing.
+* Go to the Docker plugin on the NAS.
+* Click on `Image -> Add -> File ...`
+* Navigate to the folder where you uploaded the Docker Image.
+* Select the docker image and click `Next`
+* Select your new image and click `Launch` in the top bar.
+* Click on Advanced Setting.
+* Click on Network.
+* Tick `Use the same network as Docker Host`
+* Press `Apply`.
+
 
 ### Documentation
 * API documentation will be provided via [Swagger](https://swagger.io) exposed through the [`/swagger`](https://iotstadslab.herokuapp.com/swagger) route in the API.
 * To show the documentation we are making use of [ReDoc](https://github.com/Rebilly/ReDoc) exposed on the [`/`](https://iotstadslab.herokuapp.com) route of the API.
 * To view a sample of the API docs, a demo is hosted at [IoT Stadslab](https://iotstadslab.herokuapp.com).
-
-### ToDo's
-- [ ] Write Docker part of the README.
 
 ### License
 
