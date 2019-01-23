@@ -32,7 +32,7 @@ function startOne(client, password) {
                     sensor_name: payload.dev_id,
                 }, (err, sensorData) => {
                     if (obj.isEmpty(sensorData)) {
-                        if (error) return res.status(404).json({ "message": error });
+                        if (err) return res.status(404).json({ "message": error });
 
                         data(dataset).save();
                     } else if (sensorData.sensor_uplink && Array.isArray(sensorData.sensor_uplink)) {
