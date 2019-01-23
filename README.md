@@ -73,6 +73,7 @@ To visualize the data gathered from the API, a dashboard will be developed. The 
 * Click on Network.
 * Tick `Use the same network as Docker Host`
 * Press `Apply`.
+* Click `Next` until the window dissapears.
 
 
 ### Documentation
