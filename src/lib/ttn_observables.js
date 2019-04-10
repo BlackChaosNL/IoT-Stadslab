@@ -28,17 +28,17 @@ function startOne(client, password) {
                     }
                 };
 
-                let item = data.find({
+                let sensor = data.find({
                     sensor_name: payload.dev_id,
                 });
                 
-                if (obj.isEmpty(item)) {
+                if (obj.isEmpty(sensor)) {
                     if (err) return res.status(404).json({ "message": error });
 
                     data(dataset).save();
-                } else if (item.sensor_uplink && Array.isArray(item.sensor_uplink)) {
-                    item.sensor_uplink.push(dataset.sensor_uplink);
-                    item.save();
+                } else if (sensor.sensor_uplink && Array.isArray(sensor.sensor_uplink)) {
+                    sensor.sensor_uplink.push(dataset.sensor_uplink);
+                    sensor.save();
                 }
 
                 socket.emit(payload.dev_id, { sensor_id: item[0], sensor_data: item[1] });
