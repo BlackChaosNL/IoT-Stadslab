@@ -8,7 +8,7 @@ before(() => {
         sensor_name: "iot_stadslab_node_1",
         sensor_id: 0,
         sensor_data: {
-	    time: {},
+	    time: Date.now,
 	    data: 1234
 	}
     }).save();
