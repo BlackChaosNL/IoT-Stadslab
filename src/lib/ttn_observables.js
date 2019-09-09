@@ -40,7 +40,7 @@ function startOne(client, password) {
                     }
                 });
                 
-                socket.emit(payload.dev_id, { sensor_id: item[0], sensor_data: item[1] });
+                //socket.emit(payload.dev_id, { sensor_id: item[0], sensor_data: item[1] });
             });
         });
     }).catch(error => {

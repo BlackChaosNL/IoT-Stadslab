@@ -7,7 +7,10 @@ before(() => {
     sensor({
         sensor_name: "iot_stadslab_node_1",
         sensor_id: 0,
-        sensor_data: 1247
+        sensor_data: {
+	    time: {},
+	    data: 1234
+	}
     }).save();
 });
 
@@ -44,7 +47,7 @@ describe("Test Sensor endpoint", () => {
         request(app)
             .post("/v0/sensors")
             .send({})
-            .expect(200)
+            .expect(400)
             .end((err, res) => {
                 assert.ifError(err);
                 assert.isFalse(res.body.ok);

@@ -65,8 +65,9 @@ router.get("/", (req, res) => {
     data({
         sensor_name: req.body.sensor_name,
         sensor_id: req.body.sensor_id,
-        sensor_data: req.body.sensor_data,
-        sensor_time: req.body.sensor_time
+        sensor_data: {
+	    data: req.body.sensor_data
+	}
     }).save((error) => {
         if (error) return res.status(404).json({
             "message": error
