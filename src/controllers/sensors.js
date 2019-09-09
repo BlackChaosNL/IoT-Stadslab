@@ -56,7 +56,7 @@ router.get("/", (req, res) => {
     if (req.body.sensor_name == null ||
         req.body.sensor_id == null ||
         req.body.sensor_data == null) {
-        return res.status(200).json({
+        return res.status(400).json({
             ok: false,
             message: "Please fill in the sensor name, id and data."
         });
