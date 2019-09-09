@@ -7,9 +7,18 @@ before(() => {
     sensor({
         sensor_name: "iot_stadslab_node_1",
         sensor_id: 0,
-        sensor_data: {
+        sensor_data: [{
+	    data: 1234
+	}, {
+	    data: 1234
+	}, {
+	    data: 1234
+	}, {
+	    data: 1234
+	}, {
 	    data: 1234
 	}
+	]
     }).save();
 });
 
@@ -111,6 +120,19 @@ describe("Test Sensor endpoint", () => {
                 assert.isArray(res.body);
                 done();
             });
+    });
+
+    it("Should return a limited amount of sensor data", done => {
+        request(app)
+	    .get("/v0/sensors/iot_stadslab_node_1/0/3")
+	    .expect(200)
+	    .end((err, response) => {
+	        assert.ifError(err);
+		assert.isArray(res.body);
+		assert.isArray(res.body.sensor_data);
+		expect(res.body.sensor_data).to.have.length(3);
+		done();
+	    });
     });
 
     it("Should return newest harvested sensor data from a node", done => {

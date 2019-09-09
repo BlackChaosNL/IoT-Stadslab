@@ -139,6 +139,38 @@ router.get("/:id/:sensor_id", (req, res) => {
     });
 });
 
+
+/**
+ * @swagger
+ * '/v0/sensors/{name}/{sensor_id}/{limit}':
+ *   get:
+ *     tags:
+ *      - Sensors
+ *     description: Returns all data from specified sensor.
+ *     produces: application/json
+ *     responses:
+ *       200:
+ *         description: Returns a list of unique sensors.
+ *       404:
+ *         description: Sensor could not be found.
+ *         $ref: '#/definitions/NotFoundError'
+ */
+
+router.get("/:id/:sensor_id/:limit", (req, res) => {
+    let d = data.find({
+        sensor_name: req.params.id,
+        sensor_id: req.params.sensor_id
+    }, { sensor_data: { $slice: -req.params.limit }});
+    
+    if (obj.isEmpty(d)) return res.status(404).json({
+        "message": "Could not find a node or sensor."
+    });
+
+    return res.json(d);
+});
+
+
+
 /**
  * @swagger
  * '/v0/sensors/{name}/{sensor_id}/newest':
