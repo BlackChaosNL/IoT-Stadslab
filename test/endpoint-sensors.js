@@ -86,7 +86,7 @@ describe("Test Sensor endpoint", () => {
                 assert.isArray(res.body);
                 assert.isString(res.body[0].sensor_name, "Found a sensor");
                 assert.equal("iot_stadslab_node_1", res.body[0].sensor_name);
-                assert.equal(1247, res.body[0].sensor_data);
+                assert.equal(1247, res.body[0].sensor_data[0].data);
                 done();
             });
     });
