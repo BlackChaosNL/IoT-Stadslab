@@ -30,7 +30,7 @@ function startOne(client, password) {
 
                 data.findOne({
                     sensor_name: payload.dev_id,
-		    sensor_id: item[0]
+		            sensor_id: item[0]
                 },(err, item) => {
                     if (obj.isEmpty(item)) {
                         data(dataset).save();
@@ -39,8 +39,6 @@ function startOne(client, password) {
                         item.save();
                     }
                 });
-                
-                //socket.emit(payload.dev_id, { sensor_id: item[0], sensor_data: item[1] });
             });
         });
     }).catch(error => {

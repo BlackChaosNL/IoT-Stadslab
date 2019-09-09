@@ -66,8 +66,8 @@ router.get("/", (req, res) => {
         sensor_name: req.body.sensor_name,
         sensor_id: req.body.sensor_id,
         sensor_data: {
-	    data: req.body.sensor_data
-	}
+	        data: req.body.sensor_data
+	    }
     }).save((error) => {
         if (error) return res.status(404).json({
             "message": error
@@ -157,48 +157,16 @@ router.get("/:id/:sensor_id", (req, res) => {
  */
 
 router.get("/:id/:sensor_id/:limit", (req, res) => {
-    let d = data.find({
+    let limit = isNaN(parseInt(req.params.limit)) ? 1 : req.params.limit;
+    data.findOne({
         sensor_name: req.params.id,
         sensor_id: req.params.sensor_id
-    }, { sensor_data: { $slice: -req.params.limit }});
-    
-    if (obj.isEmpty(d)) return res.status(404).json({
-        "message": "Could not find a node or sensor."
-    });
-
-    return res.json(d);
-});
-
-
-
-/**
- * @swagger
- * '/v0/sensors/{name}/{sensor_id}/newest':
- *   get:
- *     tags:
- *      - Sensors
- *     description: Returns the latest data from specified sensor.
- *     produces: application/json
- *     responses:
- *       200:
- *         description: Returns the last recorded sensor data.
- *       404:
- *         description: Sensor or data could not be found.
- *         $ref: '#/definitions/NotFoundError'
- */
-
-router.get("/:id/:sensor_id/newest", (req, res) => {
-    data.find({
-        sensor_name: req.params.id,
-        sensor_id: req.params.sensor_id
-    }).sort('-sensor_time').limit(1).exec((error, sensordata) => {
-        if (error) return res.status(404).json({
-            "message": error
-        });
-        if (obj.isEmpty(sensordata)) return res.status(404).json({
+    }, { 'sensor_data': { $slice: -limit }}, (err, model) => {
+        if (err) return res.status(404).json({ "message": err });
+        if (obj.isEmpty(model)) return res.status(404).json({
             "message": "Could not find a node or sensor."
         });
-        return res.json(sensordata);
+        return res.json(model);
     });
 });
 
