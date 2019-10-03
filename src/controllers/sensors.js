@@ -62,9 +62,7 @@ router.get("/", (req, res) => {
         });
     }
 
-    if(!data.exists({
-        sensor_name: req.body.sensor_name
-    })){
+    if(!data.findOne({ sensor_name: req.body.sensor_name }).select({ _id: 1 }).lean().then(doc => !!doc)){
         data({
             sensor_name: req.body.sensor_name,
             sensor_id: req.body.sensor_id,
