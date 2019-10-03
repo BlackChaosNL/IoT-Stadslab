@@ -73,7 +73,6 @@ router.get("/", (req, res) => {
                     });
                 } else {
                     item.sensor_data.push({
-                        time: Datetime.now,
                         data: req.body.sensor_data
                     });
                     item.save();
@@ -89,7 +88,6 @@ router.get("/", (req, res) => {
                 sensor_id: req.body.sensor_id,
                 sensor_data: [
                     { 
-                        time: Datetime.now,
                         data: req.body.sensor_data 
                     }
                 ]
