@@ -62,20 +62,35 @@ router.get("/", (req, res) => {
         });
     }
 
-    data({
-        sensor_name: req.body.sensor_name,
-        sensor_id: req.body.sensor_id,
-        sensor_data: {
-	        data: req.body.sensor_data
-	    }
-    }).save((error) => {
-        if (error) return res.status(404).json({
-            "message": error
+    if(!data.exists({
+        sensor_name: req.body.sensor_name
+    })){
+        data({
+            sensor_name: req.body.sensor_name,
+            sensor_id: req.body.sensor_id,
+            sensor_data: [
+                { data: req.body.sensor_data }
+            ]
+        }).save((error) => {
+            if (error) return res.status(404).json({
+                "message": error
+            });
+            return res.json({
+                ok: true
+            });
+        });   
+    } else {
+        data.find({
+            sensor_name: req.body.sensor_name
+        }, (err, item) => {
+            if (err) return res.status(404).json({
+                "message": err
+            });
+            item.sensor_data.push(req.body.sensor_data);
+            item.save();
         });
-        return res.json({
-            ok: true
-        });
-    });
+    }
+    
 });
 
 /**
