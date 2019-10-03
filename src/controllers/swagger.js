@@ -23,7 +23,7 @@ router.get("/", (req, res) => {
                 version: dist.version,
                 description: dist.description,
             },
-            host: "https://185.232.255.1:3000",
+            host: "185.232.255.1:3000",
             basePath: "/",
         },
         apis: ["./src/environment/apiDefinitions.yaml",

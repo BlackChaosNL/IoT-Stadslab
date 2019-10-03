@@ -62,33 +62,47 @@ router.get("/", (req, res) => {
         });
     }
 
-    if(!data.findOne({ sensor_name: req.body.sensor_name }).select({ _id: 1 }).lean().then(doc => !!doc)){
-        data({
-            sensor_name: req.body.sensor_name,
-            sensor_id: req.body.sensor_id,
-            sensor_data: [
-                { data: req.body.sensor_data }
-            ]
-        }).save((error) => {
-            if (error) return res.status(404).json({
-                "message": error
+    data.countDocuments({ sensor_name: req.body.sensor_name }, (err, c) => {
+        if (c > 0) {
+            data.find({
+                sensor_name: req.body.sensor_name
+            }, (err, item) => {
+                if (err) {
+                    return res.status(404).json({
+                        "message": err
+                    });
+                } else {
+                    item.sensor_data.push({
+                        time: Datetime.now,
+                        data: req.body.sensor_data
+                    });
+                    item.save();
+                    return res.status(201).json({
+                        ok: "true",
+                        message: "Sensor data has been added"
+                    });
+                }
             });
-            return res.json({
-                ok: true
+        } else {
+            data({
+                sensor_name: req.body.sensor_name,
+                sensor_id: req.body.sensor_id,
+                sensor_data: [
+                    { 
+                        time: Datetime.now,
+                        data: req.body.sensor_data 
+                    }
+                ]
+            }).save((error) => {
+                if (error) return res.status(404).json({
+                    "message": error
+                });
+                return res.json({
+                    ok: true
+                });
             });
-        });   
-    } else {
-        data.find({
-            sensor_name: req.body.sensor_name
-        }, (err, item) => {
-            if (err) return res.status(404).json({
-                "message": err
-            });
-            item.sensor_data.push(req.body.sensor_data);
-            item.save();
-        });
-    }
-    
+        }
+    });
 });
 
 /**
