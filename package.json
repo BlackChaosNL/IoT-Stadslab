@@ -31,11 +31,11 @@
     "hoek": ">=4.2.1",
     "left-pad": "^1.3.0",
     "mathjs": "^5.4.0",
-    "mongoose": "^5.7.5",
+    "mongoose": "^5.12.2",
     "nodemon": "^1.18.7",
     "redoc": "^2.0.0-rc.4",
     "serve-static": "^1.13.2",
-    "snyk": "^1.290.1",
+    "snyk": "^1.465.0",
     "socket.io": "^2.2.0",
     "swagger-jsdoc": "^1.10.0",
     "ttn": "^2.3.2"
