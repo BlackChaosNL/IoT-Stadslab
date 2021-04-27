@@ -36,7 +36,7 @@
     "redoc": "^2.0.0-rc.4",
     "serve-static": "^1.13.2",
     "snyk": "^1.290.1",
-    "socket.io": "^2.2.0",
+    "socket.io": "^3.0.0",
     "swagger-jsdoc": "^1.10.0",
     "ttn": "^2.3.2"
   },
